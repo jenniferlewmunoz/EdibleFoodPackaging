@@ -24,7 +24,9 @@ var moodImage;
 var bkColor = '#031927';
 var textColor = '#E9D6EC';
 
+// Fonts
 var buttonFont;
+var titleFont;
 
 // Variables for splash page
 var splashImages = [];
@@ -35,7 +37,8 @@ function preload() {
   clickablesManager = new ClickableManager('data/clickableLayout.csv');
   complexStateMachine = new ComplexStateMachine("data/interactionTable.csv", "data/clickableLayout.csv");
 
-  buttonFont = loadFont("AtariClassic-ExtraSmooth.ttf");
+  buttonFont = loadFont("fonts/AtariClassic-ExtraSmooth.ttf");
+  titleFont = loadFont("fonts/Dico.ttf");
 
   // Preload images of girl on splash page
   splashImages[0] = loadImage('assets/girl_part_1.png');
