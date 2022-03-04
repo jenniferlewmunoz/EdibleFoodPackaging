@@ -26,11 +26,21 @@ var textColor = '#E9D6EC';
 
 var buttonFont;
 
+// Variables for splash page
+var splashImages = [];
+var currentSplashImage = 0;
+var timer;
+
 function preload() {
   clickablesManager = new ClickableManager('data/clickableLayout.csv');
   complexStateMachine = new ComplexStateMachine("data/interactionTable.csv", "data/clickableLayout.csv");
 
   buttonFont = loadFont("AtariClassic-ExtraSmooth.ttf");
+
+  // Preload images of girl on splash page
+  splashImages[0] = loadImage('assets/girl_part_1.png');
+  splashImages[1] = loadImage('assets/girl_part_2.png');
+  splashImages[2] = loadImage('assets/girl_part_3.png');
 }
 
 // Setup code goes here
@@ -46,8 +56,14 @@ function setup() {
 
   // call OUR function to setup additional information about the p5.clickables
   // that are not in the array 
-  setupClickables(); 
- }
+  setupClickables();
+
+  // Set up the timer
+  timer = new Timer(1000);
+  timer.start();
+
+  //textAlign(CENTER, CENTER);
+}
 
 
 // Draw code goes here
@@ -60,7 +76,7 @@ function draw() {
 
 function setupClickables() {
   // All clickables to have same effects
-  for( let i = 0; i < clickables.length; i++ ) {
+  for (let i = 0; i < clickables.length; i++) {
     clickables[i].onHover = clickableButtonHover;
     clickables[i].onOutside = clickableButtonOnOutside;
     clickables[i].onPress = clickableButtonPressed;
@@ -82,20 +98,20 @@ clickableButtonOnOutside = function () {
   this.color = "#E9D6EC";
 }
 
-clickableButtonPressed = function() {
+clickableButtonPressed = function () {
   complexStateMachine.clickablePressed(this.name);
 }
 
 // this is a callback, which we use to set our display image
 function setImage(imageFilename) {
   moodImage = loadImage(imageFilename);
-} 
+}
 
 // this is a callback, which we can use for different effects
 function stateChanged(newStateName) {
-    currentStateName = newStateName;
-    console.log(currentStateName);
-} 
+  currentStateName = newStateName;
+  console.log(currentStateName);
+}
 
 
 //==== KEYPRESSED ====/
@@ -112,20 +128,24 @@ function drawBackground() {
 }
 
 function drawImage() {
-  if( moodImage !== undefined ) {
-    image(moodImage, width/2, height/2);
-  }  
+  if (moodImage !== undefined) {
+    image(moodImage, width / 2, height / 2);
+  }
 }
 
 function drawOther() {
   push();
 
-   // Draw mood — if not on Splash or Instructions screen  
-   if( currentStateName !== "Splash" && currentStateName !== "Instructions") {
+  if (currentStateName == "Splash") {
+    drawSplashScreen();
+  }
+
+  // Draw mood — if not on Splash or Instructions screen  
+  if (currentStateName !== "Splash" && currentStateName !== "Instructions") {
     fill(color(textColor));
     textFont(buttonFont);
     textSize(24);
-    text(currentStateName, width/2, 50);
+    text(currentStateName, width / 2, 50);
   }
 
   pop();
@@ -134,4 +154,36 @@ function drawOther() {
 //-- right now, it is just the clickables
 function drawUI() {
   clickablesManager.draw();
+}
+
+function drawSplashScreen() {
+
+  // Make rectangle
+  fill(232, 232, 230, 170);
+  strokeWeight(20);
+  rect(70, 70, 600, 450, 40);
+
+  // Write title
+  fill(0);
+  textSize(60);
+  textAlign(CENTER);
+  text("The Adventure to Edible Food Packaging", 150, 150, 450, 400);
+  textSize(20);
+  text("Brought to you by Albert E. at EFP Labs", 270, 400, 200, 400)
+
+  // Print one image of the girl
+  let img = splashImages[currentSplashImage];
+  let imgSize = 600;
+
+  img.resize(imgSize, imgSize);
+  image(img, 950, height - (imgSize / 2));
+
+  // Restart the image, and increase image index
+  if (timer.expired()) {
+    currentSplashImage++;
+    if (currentSplashImage == 3) {
+      currentSplashImage = 0;
+    }
+    timer.start();
+  }
 }

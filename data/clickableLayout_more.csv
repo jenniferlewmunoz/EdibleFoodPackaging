@@ -1,6 +1,6 @@
 ID,Name,PNGFilename,Text,x,y,visible
-0,Next,,Next,1000,650,yes
-1,Start,,Start Scenario,1000,650,yes
+0,Next,,Next,500,600,yes
+1,Start,,Start Scenario,500,600,yes
 2,Restart,,Restart,100,650,yes
 3,SkipDinner,,Skip Dinner,1000,650,yes
 4,LieInBed,,Lie in Bed,100,650,yes
