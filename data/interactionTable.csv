@@ -1,5 +1,6 @@
 StateName,PNGFilename,ClickableName,NextState
 Splash,assets/splash.png,Next,Instructions
+Splash,assets/splash.png,Extra,Calm
 Instructions,assets/instructions.png,Restart,Splash
 Instructions,assets/instructions.png,Start,Calm
 Calm,assets/calm.png,Next,Anxious

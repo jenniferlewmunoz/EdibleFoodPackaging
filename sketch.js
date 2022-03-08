@@ -21,6 +21,7 @@ var clickables;                    // an array of clickable objects
 var currentStateName = "";
 var moodImage;
 
+// Color
 var bkColor = '#031927';
 var textColor = '#E9D6EC';
 
@@ -37,8 +38,8 @@ function preload() {
   clickablesManager = new ClickableManager('data/clickableLayout.csv');
   complexStateMachine = new ComplexStateMachine("data/interactionTable.csv", "data/clickableLayout.csv");
 
-  buttonFont = loadFont("fonts/AtariClassic-ExtraSmooth.ttf");
-  titleFont = loadFont("fonts/Dico.ttf");
+  buttonFont = loadFont("fonts/OpenSans.ttf");
+  titleFont = loadFont("fonts/OpenSans.ttf");
 
   // Preload images of girl on splash page
   splashImages[0] = loadImage('assets/girl_part_1.png');
@@ -80,17 +81,30 @@ function draw() {
 function setupClickables() {
   // All clickables to have same effects
   for (let i = 0; i < clickables.length; i++) {
+
+    // Call back function
     clickables[i].onHover = clickableButtonHover;
     clickables[i].onOutside = clickableButtonOnOutside;
     clickables[i].onPress = clickableButtonPressed;
-    clickables[i].textFont = "AtariClassic-ExtraSmooth";
-    clickables[i].width = 220;
+
+    // Customize the button
+    clickables[i].textFont = buttonFont;
+    clickables[i].width = 150;
+    clickables[i].height = 60;
+    clickables[i].textSize = 25;
+    clickables[i].strokeWeight = 5;
+
+    // Background color (232, 232, 230, 170);
+    clickables[i].rColor = 232;
+    clickables[i].gColor = 232;
+    clickables[i].bColor = 230;
+    clickables[i].transparency = 170;
   }
 }
 
 // tint when mouse is over
 clickableButtonHover = function () {
-  this.color = "#F2545B";
+  this.color = "#FFFFFF";
   this.noTint = false;
   this.tint = "#FF0000";
 }
@@ -114,14 +128,6 @@ function setImage(imageFilename) {
 function stateChanged(newStateName) {
   currentStateName = newStateName;
   console.log(currentStateName);
-}
-
-
-//==== KEYPRESSED ====/
-function mousePressed() {
-  // if( currentStateName === "Splash" ) {
-  //   complexStateMachine.newState("Instructions");
-  // }
 }
 
 //==== MODIFY THIS CODE FOR UI =====/
@@ -168,11 +174,12 @@ function drawSplashScreen() {
 
   // Write title
   fill(0);
-  textSize(60);
+  textSize(70);
   textAlign(CENTER);
-  text("The Adventure to Edible Food Packaging", 150, 150, 450, 400);
+  textFont(titleFont);
+  text("The Adventure to Edible Food Packaging", 135, 140, 500, 400);
   textSize(20);
-  text("Brought to you by Albert E. at EFP Labs", 270, 400, 200, 400)
+  text("Brought to you by Albert E. at EFP Labs", 380, 480);
 
   // Print one image of the girl
   let img = splashImages[currentSplashImage];

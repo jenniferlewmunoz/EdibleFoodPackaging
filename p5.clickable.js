@@ -63,7 +63,10 @@ function Clickable() {
 	this.y = 0;			//Y position of the clickable
 	this.width = 100;		//Width of the clickable
 	this.height = 50;		//Height of the clickable
-	this.color = "#FFFFFF";		//Background color of the clickable
+	this.rColor = 0;			// Red value for background
+	this.bColor = 0;			// Blue value for background
+	this.gColor = 0;			// Green value for background
+	this.transparency = 255;	// Transparency of background
 	this.cornerRadius = 10;		//Corner radius of the clickable
 	this.strokeWeight = 2;		//Stroke width of the clickable
 	this.stroke = "#000000";	//Border color of the clickable
@@ -73,7 +76,7 @@ function Clickable() {
 	this.textFont = "sans-serif";	//Font for the text shown
 	this.textScaled = false;     //Scale the text with the size of the clickable
 	this.drawImageOnly = false;		// set to true if we want just the PNG
-	
+
 	// image options
 	this.image = null; // image object from p5loadimage()
 	this.tint = null; // tint image using color
@@ -125,25 +128,25 @@ function Clickable() {
 	}
 
 	// Added at async
-	this.drawImage = function(){
+	this.drawImage = function () {
 		// exit if image not yet loaded
-		if( this.image === null ) {
+		if (this.image === null) {
 			return;
 		}
 
 		// resize if flag has been triggered & image != 1
-		if( this.resizeImageFlag && this.image.width != 1 && this.image.height != 1) {
+		if (this.resizeImageFlag && this.image.width != 1 && this.image.height != 1) {
 			this.resize(this.image.width, this.image.height);
 			this.resizeImageFlag = false;
 		}
 
 		image(this.image, this.x, this.y, this.width, this.height);
-		if(this.tint && !this.noTint){
+		if (this.tint && !this.noTint) {
 			tint(this.tint)
 		} else {
 			noTint();
 		}
-		if(this.filter){
+		if (this.filter) {
 			filter(this.filter);
 		}
 	}
@@ -156,14 +159,14 @@ function Clickable() {
 	}
 
 	this.draw = function () {
-		if( this.visible === false ) {
+		if (this.visible === false) {
 			return;
 		}
 
 		push();
 
-		if( !this.drawImageOnly ) {
-			fill(this.color);
+		if (!this.drawImageOnly) {
+			fill(this.rColor, this.bColor, this.gColor, this.transparency);
 			stroke(this.stroke);
 			strokeWeight(this.strokeWeight);
 			rect(this.x, this.y, this.width, this.height, this.cornerRadius);
@@ -171,15 +174,15 @@ function Clickable() {
 			noStroke();
 		}
 
-		if(this.image){
+		if (this.image) {
 			this.drawImage();
 		}
 
-		if( !this.drawImageOnly ) {
+		if (!this.drawImageOnly) {
 			textAlign(CENTER, CENTER);
 			textSize(this.textSize);
 			textFont(this.textFont);
-			text(this.text, this.x + this.width / 2, this.y + this.height / 2);
+			text(this.text, this.x + this.width / 2, this.y - 5 + this.height / 2);
 		}
 		if (mouseX >= this.x && mouseY >= this.y
 			&& mouseX < this.x + this.width && mouseY < this.y + this.height) {
@@ -216,12 +219,12 @@ class ClickableManager {
 		let hasColor = this.hasColumnData('color');
 
 		// For each row, allocate a clickable object
-		for( let i = 0; i < this.allocatorTable.getRowCount(); i++ ) {
+		for (let i = 0; i < this.allocatorTable.getRowCount(); i++) {
 			this.clickableArray[i] = new Clickable();
-			
+
 			// if we have an image, we will call setImage() to load that image into that p5.clickable
-			if( this.allocatorTable.getString(i, 'PNGFilename') != "" ) {
-				this.clickableArray[i].setImage(loadImage(this.allocatorTable.getString(i, 'PNGFilename'))); 
+			if (this.allocatorTable.getString(i, 'PNGFilename') != "") {
+				this.clickableArray[i].setImage(loadImage(this.allocatorTable.getString(i, 'PNGFilename')));
 			}
 
 			// supply the remaining fields from the .csv file
@@ -231,38 +234,38 @@ class ClickableManager {
 			this.clickableArray[i].name = this.allocatorTable.getString(i, 'Name');
 			this.clickableArray[i].x = eval(this.allocatorTable.getString(i, 'x'));
 			this.clickableArray[i].y = eval(this.allocatorTable.getString(i, 'y'));
-			if( hasWidth ) {
-				this.clickableArray[i].width = eval(this.allocatorTable.getString(i, 'width'));	
+			if (hasWidth) {
+				this.clickableArray[i].width = eval(this.allocatorTable.getString(i, 'width'));
 			}
-			if( hasHeight ) {
+			if (hasHeight) {
 				this.clickableArray[i].height = eval(this.allocatorTable.getString(i, 'height'));
 			}
-			if( hasColor ) {
+			if (hasColor) {
 				// expects hex value
 				this.clickableArray[i].color = this.allocatorTable.getString(i, 'color');
 			}
 
 			this.clickableArray[i].text = this.allocatorTable.getString(i, 'Text')
-			
+
 		}
-	
+
 		return this.clickableArray;
 	}
 
 	// draw all clickables (visible now in the draw function)
 	draw() {
-		for( let i = 0; i < this.clickableArray.length; i++ ) {
+		for (let i = 0; i < this.clickableArray.length; i++) {
 			this.clickableArray[i].draw();
 		}
 	}
 
 	// given a column name and cell, will get the String value associated with it
-	getAttribute(rowNum,attStr) {
+	getAttribute(rowNum, attStr) {
 		// return empty string if we are out of bounds
-		if( rowNum < 0 || rowNum >= this.allocatorTable.getRowCount()) {
+		if (rowNum < 0 || rowNum >= this.allocatorTable.getRowCount()) {
 			return "";
 		}
-		
+
 		return this.allocatorTable.getString(rowNum, attStr);
 	}
 
@@ -270,11 +273,11 @@ class ClickableManager {
 	// Weird way to check to see if the column actually has data or not, but it works...
 	hasColumnData(headerStr) {
 		let arr = this.allocatorTable.getColumn(headerStr);
-		if( this.allocatorTable.getRowCount() === 0 || arr[0] === undefined) {
-			print( "No " + headerStr + " parameter in clickables Layout");
+		if (this.allocatorTable.getRowCount() === 0 || arr[0] === undefined) {
+			print("No " + headerStr + " parameter in clickables Layout");
 			return false;
 		}
 
 		return true;
 	}
- }
+}
