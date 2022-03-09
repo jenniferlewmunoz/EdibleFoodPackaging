@@ -34,6 +34,9 @@ var splashImages = [];
 var currentSplashImage = 0;
 var timer;
 
+// Scientist Images
+var scientist = [];
+
 function preload() {
   clickablesManager = new ClickableManager('data/clickableLayout.csv');
   complexStateMachine = new ComplexStateMachine("data/interactionTable.csv", "data/clickableLayout.csv");
@@ -45,6 +48,12 @@ function preload() {
   splashImages[0] = loadImage('assets/girl_part_1.png');
   splashImages[1] = loadImage('assets/girl_part_2.png');
   splashImages[2] = loadImage('assets/girl_part_3.png');
+
+  // Preload images of scientist
+  scientist[0] = loadImage('assets/scientist.png');
+  scientist[1] = loadImage('assets/scientist_upset.png');
+  scientist[2] = loadImage('assets/scientist_wave_left.png');
+  scientist[3] = loadImage('assets/scientist_wave_right.png');
 }
 
 // Setup code goes here
@@ -102,17 +111,20 @@ function setupClickables() {
   }
 }
 
-// tint when mouse is over
+// Update button when mouse is hovering over it
 clickableButtonHover = function () {
-  this.color = "#FFFFFF";
-  this.noTint = false;
-  this.tint = "#FF0000";
+  this.rColor = 255;
+  this.gColor = 255;
+  this.bColor = 255;
+  this.transparency = 255;
 }
 
-// color a light gray if off
+// Update button when mouse is no longer hovering over it
 clickableButtonOnOutside = function () {
-  // backto our gray color
-  this.color = "#E9D6EC";
+  this.rColor = 232;
+  this.gColor = 232;
+  this.bColor = 230;
+  this.transparency = 170;
 }
 
 clickableButtonPressed = function () {
@@ -149,6 +161,10 @@ function drawOther() {
     drawSplashScreen();
   }
 
+  if (currentStateName == "Intro1") {
+    drawIntro1();
+  }
+
   // Draw mood — if not on Splash or Instructions screen  
   if (currentStateName !== "Splash" && currentStateName !== "Instructions") {
     fill(color(textColor));
@@ -183,10 +199,10 @@ function drawSplashScreen() {
 
   // Print one image of the girl
   let img = splashImages[currentSplashImage];
-  let imgSize = 600;
+  let imgSize = 700;
 
   img.resize(imgSize, imgSize);
-  image(img, 950, height - (imgSize / 2));
+  image(img, 960, height - (imgSize / 2));
 
   // Restart the image, and increase image index
   if (timer.expired()) {
@@ -196,4 +212,10 @@ function drawSplashScreen() {
     }
     timer.start();
   }
+}
+
+function drawIntro1() {
+  let imgSize = 700;
+  scientist[3].resize(imgSize, imgSize);
+  image(scientist[3], 300, height - (imgSize / 2));
 }
