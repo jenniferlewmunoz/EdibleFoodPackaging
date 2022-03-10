@@ -40,8 +40,12 @@ var splashImages = [];
 var currentSplashImage = 0;
 var timer;
 
-// Scientist Images
+// Players
 var scientist = [];
+var mackey;
+var owner;
+var mayor;
+var citizen;
 
 function preload() {
   clickablesManager = new ClickableManager('data/clickableLayout.csv');
@@ -60,6 +64,12 @@ function preload() {
   scientist[1] = loadImage('assets/scientist_upset.png');
   scientist[2] = loadImage('assets/scientist_wave_left.png');
   scientist[3] = loadImage('assets/scientist_wave_right.png');
+
+  // Preload images of players 
+  mackey = loadImage('assets/mackey.png');
+  owner = loadImage('assets/small_business_owner.png');
+  mayor = loadImage('assets/mayor_happy.png');
+  citizen = loadImage('assets/citizen.png');
 
   // Preload icon
   icons[0] = loadImage('assets/scientist_icon.png');
@@ -202,6 +212,12 @@ function drawOther() {
   if (currentStateName == "Scene1") drawScene1();
   if (currentStateName == "EndGame") drawEndGame();
   if (currentStateName == "Scene1Slide1") drawS1S1();
+  if (currentStateName == "Scene1Slide1") drawS1S1();
+  if (currentStateName == "StoreOption1") drawStoreOption1();
+  if (currentStateName == "StoreOption2") drawStoreOption2();
+  if (currentStateName == "ChooseWholeFoods") drawChooseWholeFoods();
+  if (currentStateName == "ChooseSmallBusiness") drawChooseSmallBusiness();
+  if (currentStateName == "Scene2") drawScene2();
   pop();
 }
 
@@ -238,6 +254,10 @@ function drawSplashScreen() {
     }
     timer.start();
   }
+
+  //Reset end game data
+  scores = [10, 0, 0, 0, 0];
+  unlocked = [true, false, false, false, false];
 }
 
 function drawEndGame() {
@@ -324,8 +344,120 @@ function drawScene1() {
   text("The Logistics", 710, 400);
 }
 
+// Scene 1, Slide 1
 function drawS1S1() {
   drawScientist(0, 300);
   let message = "We’re going to need some funding to start prototyping in stores to show the world how our edible food packing works. Should we ask an environmental organization to fund us, or take a loan out ourselves to ensure that we are the only ones credited.";
-  drawTextBox(550, 140, 500, 230, 20, message);
+  drawTextBox(560, 140, 500, 230, 20, message);
+}
+
+function drawStore(message, textBoxHeight) {
+  // Draw text
+  drawTextBox(370, 120, 500, textBoxHeight, 20, message);
+
+  // Draw players
+  let imgSize = 700;
+  mackey.resize(imgSize, imgSize);
+  image(mackey, 200, height - (imgSize / 2));
+
+  owner.resize(imgSize, imgSize);
+  image(owner, 1070, height - (imgSize / 2));
+
+  // Update end game data
+  reason = "Unfortunately, it was realized that new technology was needed to ensure longer shelve lives in stores and neither the Lab or the store had that kind of funded so the project has come to an end.";
+  unlocked[1] = true;
+  unlocked[2] = true;
+  scores[1] = 40;
+  scores[2] = 40;
+}
+
+function drawStoreOption1() {
+  // Draw text
+  let message = "WWF loved the idea of edible food packing, and have gernously offered to cover all the prototyping cost to gain exposure. Now, we need to go into stores and ask to prototype our products on their shelves. Who should we ask?";
+  drawTextBox(370, 120, 500, 230, 20, message);
+
+  // Draw players
+  let imgSize = 700;
+  mackey.resize(imgSize, imgSize);
+  image(mackey, 200, height - (imgSize / 2));
+
+  owner.resize(imgSize, imgSize);
+  image(owner, 1070, height - (imgSize / 2));
+
+  // Update end game data
+  unlocked[1] = true;
+  unlocked[2] = true;
+  scores[1] = 40;
+  scores[2] = 40;
+}
+
+function drawStoreOption2() {
+  // Draw text
+  let message = "The Lab was approved for a loan that was only 50% of asking, but it’s still a good start. Now, we need to go into stores and ask to prototype our products on their shelves. Who should we ask?";
+  drawTextBox(370, 150, 500, 190, 20, message);
+
+  // Draw players
+  let imgSize = 700;
+  mackey.resize(imgSize, imgSize);
+  image(mackey, 200, height - (imgSize / 2));
+
+  owner.resize(imgSize, imgSize);
+  image(owner, 1070, height - (imgSize / 2));
+
+  // Update end game data
+  reason = "Unfortunately, it was realized that new technology was needed to ensure longer shelve lives in stores and neither the Lab or the store had that kind of funds so the project has come to an end.";
+  unlocked[1] = true;
+  unlocked[2] = true;
+  scores[1] = 40;
+  scores[2] = 40;
+}
+
+function drawChooseWholeFoods() {
+  // Draw text
+  let message = "We’ve successfully launched our Edible Food Packed products in Whole Foods all throughout San Francisco, but just after a few weeks, we began to notice a problem. The shelve lives of the products are a lot shorter than plastic wrapped items. We’re going to have to put technology in stores that allows longer shelve lives.";
+  drawTextBox(400, 100, 490, 300, 20, message);
+
+  // Draw players
+  let imgSize = 700;
+  mackey.resize(imgSize, imgSize);
+  image(mackey, 200, height - (imgSize / 2));
+
+  scientist[0].resize(imgSize, imgSize);
+  image(scientist[0], 1070, height - (imgSize / 2));
+
+  // Update end game data
+  scores[1] = 20;
+}
+
+function drawChooseSmallBusiness() {
+  // Draw text
+  let message = "We’ve successfully launched our Edible Food Packed products in a store, but just after a few weeks, we began to notice a problem. The shelve lives of the products are a lot shorter than plastic wrapped items. We’re going to have to put technology in stores that allows longer shelve lives.";
+  drawTextBox(400, 100, 490, 300, 20, message);
+
+  // Draw players
+  let imgSize = 700;
+  owner.resize(imgSize, imgSize);
+  image(owner, 200, height - (imgSize / 2));
+
+  scientist[0].resize(imgSize, imgSize);
+  image(scientist[0], 1070, height - (imgSize / 2));
+
+  // Update end game data
+  reason = "Unfortunately, working with a small business did not get Edible Food Packaging the exposure it needed to continue production and testing so WWF pulled their funding and the project has come to an end.";
+  scores[2] = 20;
+}
+
+function drawScene2() {
+  // Draw mayor
+  let imgSize = 700;
+  mayor.resize(imgSize, imgSize);
+  image(mayor, 280, height - (imgSize / 2));
+
+  // Draw text
+  drawBox(530, 210, 600, 250);
+  fill(0);
+  textSize(100);
+  text("Scene Two:", 570, 350);
+  textSize(40);
+  text("Thoughts of the people", 640, 400);
 }
