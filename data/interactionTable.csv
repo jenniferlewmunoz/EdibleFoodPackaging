@@ -5,4 +5,7 @@ Intro1,assets/lab_background.png,Begin,Intro2
 Intro2,assets/lab_background.png,Continue1,Intro3
 Intro3,assets/lab_background.png,Yes,Scene1
 Intro3,assets/lab_background.png,No,EndGame
-Scene1,assets/lab_background.png,Continue2,Splash
+
+Scene1,assets/lab_background.png,Continue2,Scene1Slide1
+Scene1Slide1,assets/lab_background.png,WWF,Splash
+Scene1Slide1,assets/lab_background.png,Bank,Splash

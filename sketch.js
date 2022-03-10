@@ -201,6 +201,7 @@ function drawOther() {
   if (currentStateName == "Intro3") drawIntro3();
   if (currentStateName == "Scene1") drawScene1();
   if (currentStateName == "EndGame") drawEndGame();
+  if (currentStateName == "Scene1Slide1") drawS1S1();
   pop();
 }
 
@@ -310,7 +311,6 @@ function drawIntro3() {
   drawScientist(2, 900);
   let message = "Otherwise, I’m the lead scientist Albert at EFP Labs, we are the first to create edible food packaging that has all the properties to work in today’s world!\n\n\nWill you join us to reduce the production of single-use plastics and change the world as we know it today?";
   drawTextBox(120, 130, 500, 302, 20, message);
-
   reason = "By 2200, due to plastic littered oceans all sea life becomes extinct, and the overwhelming amount of plastic on land has decomposed and released plastic toxins that posion our soils leading to the extinction of the human population.";
 }
 
@@ -322,4 +322,10 @@ function drawScene1() {
   text("Scene One:", 570, 350);
   textSize(40);
   text("The Logistics", 710, 400);
+}
+
+function drawS1S1() {
+  drawScientist(0, 300);
+  let message = "We’re going to need some funding to start prototyping in stores to show the world how our edible food packing works. Should we ask an environmental organization to fund us, or take a loan out ourselves to ensure that we are the only ones credited.";
+  drawTextBox(550, 140, 500, 230, 20, message);
 }

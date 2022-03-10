@@ -6,3 +6,5 @@ ID,Name,PNGFilename,Text,x,y,visible
 4,Yes,,Yes,190,450,yes
 5,No,,No,400,450,yes
 6,Continue2,,Continue,750,480,yes
+7,WWF,,Ask WWF,600,400,yes
+8,Bank,,Take a loan,850,400,yes
