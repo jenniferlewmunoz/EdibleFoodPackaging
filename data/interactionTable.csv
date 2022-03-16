@@ -1,5 +1,5 @@
 StateName,PNGFilename,ClickableName,NextState
-Splash,assets/splash.png,Start,Intro1
+Splash,assets/park.png,Start,Intro1
 EndGame,assets/lab_background.png,Restart,Splash
 Intro1,assets/lab_background.png,Begin,Intro2
 Intro2,assets/lab_background.png,Continue1,Intro3

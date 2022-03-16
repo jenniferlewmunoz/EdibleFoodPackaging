@@ -19,7 +19,7 @@ var clickablesManager;             // our clickables manager
 var clickables;                    // an array of clickable objects
 
 var currentStateName = "";
-var moodImage;
+var backgroundImage;
 
 // Player data: Scientist, Mackey, Owner, Mayor, Citizen
 var reason;
@@ -34,10 +34,14 @@ var textColor = '#E9D6EC';
 // Fonts
 var buttonFont;
 var titleFont;
+var abel_regular;
 
 // Variables for splash page
 var splashImages = [];
+var titleImages = [];
+var continue_button;
 var currentSplashImage = 0;
+var currentTitleImage = 0;
 var timer;
 
 // Players
@@ -51,13 +55,22 @@ function preload() {
   clickablesManager = new ClickableManager('data/clickableLayout.csv');
   complexStateMachine = new ComplexStateMachine("data/interactionTable.csv", "data/clickableLayout.csv");
 
+  // Preload fonts
   buttonFont = loadFont("fonts/OpenSans.ttf");
   titleFont = loadFont("fonts/OpenSans.ttf");
+  abel_regular = loadFont("fonts/Abel-Regular.ttf");
 
   // Preload images of girl on splash page
   splashImages[0] = loadImage('assets/girl_part_1.png');
   splashImages[1] = loadImage('assets/girl_part_2.png');
   splashImages[2] = loadImage('assets/girl_part_3.png');
+
+  // Preload images of title on splash page
+  titleImages[0] = loadImage('assets/title_down.png');
+  titleImages[1] = loadImage('assets/title_up.png');
+
+  // Preload image of continue button on splash page
+  continue_button = loadImage('assets/continue.png');
 
   // Preload images of scientist
   scientist[0] = loadImage('assets/scientist.png');
@@ -98,8 +111,6 @@ function setup() {
   // Set up the timer
   timer = new Timer(1000);
   timer.start();
-
-  //textAlign(CENTER, CENTER);
 }
 
 // Draw code goes here
@@ -124,13 +135,12 @@ function setupClickables() {
     clickables[i].width = 150;
     clickables[i].height = 60;
     clickables[i].textSize = 25;
-    clickables[i].strokeWeight = 5;
 
     // Background color (232, 232, 230, 170);
     clickables[i].rColor = 232;
     clickables[i].gColor = 232;
     clickables[i].bColor = 230;
-    clickables[i].transparency = 170;
+    clickables[i].transparency = 0;
   }
 }
 
@@ -147,7 +157,7 @@ clickableButtonOnOutside = function () {
   this.rColor = 232;
   this.gColor = 232;
   this.bColor = 230;
-  this.transparency = 170;
+  this.transparency = 220;
 }
 
 clickableButtonPressed = function () {
@@ -156,7 +166,7 @@ clickableButtonPressed = function () {
 
 // this is a callback, which we use to set our display image
 function setImage(imageFilename) {
-  moodImage = loadImage(imageFilename);
+  backgroundImage = loadImage(imageFilename);
 }
 
 // this is a callback, which we can use for different effects
@@ -165,21 +175,19 @@ function stateChanged(newStateName) {
   console.log(currentStateName);
 }
 
-//==== MODIFY THIS CODE FOR UI =====/
-
+// First draw white background for smooth transitions
 function drawBackground() {
-  background(color(bkColor));
+  background(255);
 }
 
+// Draws background image for each slide
 function drawImage() {
-  if (moodImage !== undefined) {
-    image(moodImage, width / 2, height / 2);
+  if (backgroundImage !== undefined) {
+    image(backgroundImage, width / 2, height / 2);
   }
 }
 
-function drawUI() {
-  clickablesManager.draw();
-}
+
 
 // Draws a box without text
 function drawBox(x, y, w, h) {
@@ -196,13 +204,21 @@ function drawTextBox(x, y, w, h, fontSize, message) {
   fill(0);
   textSize(fontSize);
   textAlign(CENTER);
-  textFont(titleFont);
+  textFont(abel_regular);
 
   // Write/Format text
   let padding = 40;
   text(message, x + padding, y + padding, w - padding * 2, h - padding * 2);
 }
 
+// TEST FUNCTION ===============================================
+function drawTextBar() {
+  noStroke();
+  fill(232, 232, 230, 220);
+  rect(0, 360, width, 250);
+}
+
+// Draw small UI elements depending on currentStateName
 function drawOther() {
   push();
   if (currentStateName == "Splash") drawSplashScreen();
@@ -221,36 +237,40 @@ function drawOther() {
   pop();
 }
 
+// Draw clickables
 function drawUI() {
   clickablesManager.draw();
+
+  // Draw continue button on splash page
+  if (currentStateName == "Splash") {
+    continue_button.resize(230, 200);
+    image(continue_button, 825, 510);
+  }
 }
 
 function drawSplashScreen() {
 
-  // Draw rect for title
-  drawBox(70, 70, 600, 450);
-
-  // Write title
-  fill(0);
-  textSize(70);
-  textAlign(CENTER);
-  textFont(titleFont);
-  text("The Adventure to Edible Food Packaging", 135, 140, 500, 400);
-  textSize(20);
-  text("Brought to you by Albert E. at EFP Labs", 380, 480);
+  // Print title
+  let img1 = titleImages[currentTitleImage];
+  let imgSize1 = 750;
+  img1.resize(imgSize1, imgSize1);
+  image(img1, 830, 250);
 
   // Print one image of the girl
-  let img = splashImages[currentSplashImage];
-  let imgSize = 700;
-
-  img.resize(imgSize, imgSize);
-  image(img, 960, height - (imgSize / 2));
+  let img2 = splashImages[currentSplashImage];
+  let imgSize2 = 650;
+  img2.resize(imgSize2, imgSize2);
+  image(img2, 250, height - (imgSize2 / 2));
 
   // Restart the image, and increase image index
   if (timer.expired()) {
     currentSplashImage++;
+    currentTitleImage++;
     if (currentSplashImage == 3) {
       currentSplashImage = 0;
+    }
+    if (currentTitleImage == 2) {
+      currentTitleImage = 0;
     }
     timer.start();
   }
@@ -273,6 +293,12 @@ function drawEndGame() {
   textSize(30);
   fill(0);
   text("End game results:", 1020, 100);
+  textSize(15);
+
+  let yCord = 160;
+  text("Upset", 970, yCord);
+  text("Neutral", 1060, yCord);
+  text("Happy", 1150, yCord);
 
   // Draw data
   let yPos = 200;
@@ -304,11 +330,7 @@ function drawEndGame() {
   }
 }
 
-function drawIconBox() {
-  scientistIcon.resize(60, 60);
-  image(scientistIcon, 900, 160);
-}
-
+// Helper function for drawIntro1-3() that draws scientist image
 function drawScientist(index, xcord) {
   let imgSize = 700;
   scientist[index].resize(imgSize, imgSize);
@@ -318,7 +340,9 @@ function drawScientist(index, xcord) {
 function drawIntro1() {
   drawScientist(3, 300);
   let message = "Ready to embark on an adventure to a plastic-free world?";
-  drawTextBox(620, 130, 470, 300, 45, message);
+  //drawTextBox(620, 130, 470, 300, 45, message);
+  drawTextBar();
+  drawScientist(3, 300);
 }
 
 function drawIntro2() {
@@ -334,6 +358,7 @@ function drawIntro3() {
   reason = "By 2200, due to plastic littered oceans all sea life becomes extinct, and the overwhelming amount of plastic on land has decomposed and released plastic toxins that posion our soils leading to the extinction of the human population.";
 }
 
+// Draws the scene 1 slide
 function drawScene1() {
   drawScientist(0, 300);
   drawBox(530, 210, 600, 250);

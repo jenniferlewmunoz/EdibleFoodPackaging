@@ -68,7 +68,7 @@ function Clickable() {
 	this.gColor = 0;			// Green value for background
 	this.transparency = 255;	// Transparency of background
 	this.cornerRadius = 10;		//Corner radius of the clickable
-	this.strokeWeight = 2;		//Stroke width of the clickable
+	this.strokeWeight = 0;		//Stroke width of the clickable
 	this.stroke = "#000000";	//Border color of the clickable
 	this.text = "Press Me";		//Text of the clickable
 	this.textColor = "#000000";	//Color for the text shown
