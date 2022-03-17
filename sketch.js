@@ -181,33 +181,13 @@ function drawImage() {
   }
 }
 
-// Draws a box without text
-function drawBox(x, y, w, h) {
-  fill(232, 232, 230, 170);
-  strokeWeight(6);
-  rect(x, y, w, h, 40);
-}
-
-// Draws a box with text
-function drawTextBox(x, y, w, h, fontSize, message) {
-  drawBox(x, y, w, h);
-
-  // Style text
-  fill(0);
-  textSize(fontSize);
-  textAlign(CENTER);
-  textFont(abel_regular);
-
-  // Write/Format text
-  let padding = 40;
-  text(message, x + padding, y + padding, w - padding * 2, h - padding * 2);
-}
 // Draw small UI elements depending on currentStateName
 function drawOther() {
   push();
 
   if (currentStateName == "Splash") drawSplashScreen();
-  if (currentStateName == "EndGame") drawEndGame();
+  if (currentStateName == "EndGame") drawEndGame(scientist[1]);
+  if (currentStateName == "BestEndGame") drawBestEndGame();
 
   if (currentStateName == "Intro1") drawIntro1();
   if (currentStateName == "Intro2") drawIntro2();
@@ -219,7 +199,12 @@ function drawOther() {
   if (currentStateName == "ChooseLoan") drawChooseLoan();
   if (currentStateName == "ChooseWholeFoods") drawChooseWholeFoods();
   if (currentStateName == "ChooseSmallBusiness") drawChooseSmallBusiness();
+
   if (currentStateName == "Scene2") drawScene2();
+  if (currentStateName == "Scene2Choice1") drawScene2Choice1();
+  if (currentStateName == "ChooseListen") drawChooseListen();
+  if (currentStateName == "Scene2Choice2") drawScene2Choice2();
+
   pop();
 }
 
@@ -255,6 +240,26 @@ function drawPlayer(player, imgSize, xcord) {
   image(player, xcord, height - (imgSize / 2));
 }
 
+function drawBox(x, y, w, h) {
+  fill(232, 232, 230, 170);
+  strokeWeight(6);
+  rect(x, y, w, h, 40);
+}
+
+function drawTextBox(x, y, w, h, fontSize, message) {
+  drawBox(x, y, w, h);
+
+  // Style text
+  fill(0);
+  textSize(fontSize);
+  textAlign(CENTER);
+  textFont(abel_regular);
+
+  // Write/Format text
+  let padding = 40;
+  text(message, x + padding, y + 80, w - padding * 2, h - padding * 2);
+}
+
 // ============== FUNCS FOR SPLASH & ENDGAME ==============
 function drawSplashScreen() {
 
@@ -288,22 +293,22 @@ function drawSplashScreen() {
   unlocked = [true, false, false, false, false];
 }
 
-function drawEndGame() {
+function drawEndGame(scientist) {
 
   // Draw UI
-  drawPlayer(scientist[1], 700, 250);
+  drawPlayer(scientist, 700, 630);
   drawBox(850, 40, 350, 600);
 
-  // Draw reason textbox
-  drawTextBox(450, 40, 350, 400, 20, reason);
-
   // Draw text
+  drawTextBox(60, 40, 350, 600, 20, reason);
   textSize(30);
   fill(0);
-  text("End game results:", 1020, 100);
-  textSize(15);
+  text("SUMMARY", 230, 100);
+  text("END GAME RESULTS", 1030, 100);
 
+  // Draw data labels
   let yCord = 160;
+  textSize(15);
   text("Upset", 970, yCord);
   text("Neutral", 1060, yCord);
   text("Happy", 1150, yCord);
@@ -375,7 +380,7 @@ function drawScene1Choice1() {
 
 function drawChooseNonProfit() {
   // Draw text
-  let message = "The non-profit organization loved the idea and have generously offered to cover all cost related to increasing exposure. Now where should prototype our products, a large chain like Whole Foods, or in a small business?";
+  let message = "The non-profit organization loved the idea and have generously offered to cover all cost related to increasing exposure. Now where should we prototype our products, a large chain like Whole Foods, or in a small business?";
   textAlign(CENTER);
   drawTextBar(message, 350, 280, 350, 370, 600, 220);
 
@@ -440,9 +445,83 @@ function drawChooseSmallBusiness() {
 
 // ============== SCENE ONE ==============
 function drawScene2() {
-  noStroke();
   drawTextBar("Thoughts of the people", 360, 250, 670, 485, 300, 100);
   textSize(100);
   text("Scene Two:", 580, 470);
   drawPlayer(mayor, 700, 250);
+
+  // Update end game data
+  unlocked[3] = true;
+  scores[0] = 20;
+  scores[1] = 50;
+  scores[3] = 50;
+}
+
+function drawScene2Choice1() {
+  let message = "The SF City Mayor election is coming up soon and the topic of mandating edible food packaging is stirring up quite a controversy. If I want to get re-elected for mayor, I have to make the right choice.";
+  drawTextBar(message, 360, 250, 440, 390, 500, 220);
+  drawPlayer(mayor, 700, 200);
+
+  // Update end game data
+  reason = "A good mayor should always listen to their people, so you didn't get re-elected. Your opponent was sponsered had an \"anonymous\" campaign donation (from Whole Foods), and therefore, pushed to ignore edible food packaging and not mandate it in San Francisco leading the project to its end.";
+  scores[3] = 10;
+}
+
+function drawChooseListen() {
+  drawPlayer(scientist[0], 500, 150);
+  drawPlayer(citizen, 500, 450);
+  drawPlayer(mackey, 500, 800);
+  drawPlayer(owner, 500, 1100);
+
+  textAlign(CENTER);
+  let message, x = 30, y = 40, w = 1050, h = 150;
+
+  if (mouseY > 220 && mouseX > 30 && mouseX < 265) {
+    message = "Albert, EFP Lab Scientist: Mandating edible food packaging would change the world as we know it today! It would have such a positive impact on our environment and start a new sustainable industry. This would create new jobs in production and research (the possibilities for edible food packaging & the technology that ensures longer shelf lives).";
+  } else if (mouseY > 220 && mouseX > 350 && mouseX < 555) {
+    message = "Jen, SF Local: Edible packaging would have a great impact on our environment as it’ll help save animals that suffer from plastics contaminating their ecosystems. Additionally, as a local, it could possibly help us keep our streets cleaner because I always hear from friends that our sidewalks are “disgusting”. So it would be nice to see that change in the city!";
+  } else if (mouseY > 220 && mouseX > 665 && mouseX < 925) {
+    message = "John Mackey, CEO of Whole Foods: Edible packaging is a good concept, but I don’t think it’s ready to be taking over our store shelves just yet. To keep a variety of products on shelves, stores will have to invest in new tech & machinery, and that’s just something many businesses can’t afford. The prices would increase & impact the lives of many locals.";
+  } else if (mouseY > 220 && mouseX > 990 && mouseX < 1215) {
+    message = "Samantha, Small Buisness Owner: Edible packaging would be lovely for the environment, however, many small businesses like mine will be unable to afford the new technology needed to ensure long shelf lives and variety in our stores. This will force many stores to shut down and would overall destroy the small business culture SF is known for.";
+  } else {
+    message = "Hover over player to see what they have to say.";
+    x = 300;
+    y = 85;
+    w = 600;
+    h = 50;
+  }
+
+  drawTextBar(message, 30, 170, x, y, w, h);
+
+  // Update end game data
+  unlocked[4] = true;
+  scores[4] = 50;
+}
+
+function drawScene2Choice2() {
+  let message = "After hearing what the people of San Francisco have to say on the issues, what will your stance as mayor be on the issue?";
+  textAlign(CENTER);
+  drawTextBar(message, 360, 250, 600, 390, 500, 220);
+  drawPlayer(mayor, 700, 200);
+
+  // Update end game data
+  reason = "The mayor was not not re-elected for the next term of San Francisco City Mayor because so many citizens in the city were for edible food packaging. Grocery store owners are happy with the results because they don't need to worry about changing how they run their businesses anytime soon. Nonetheless, the streets of the city continue to stay littered and the environment does not get any better.";
+  scores[0] = 10;
+  scores[1] = 70;
+  scores[2] = 80;
+  scores[3] = 10;
+  scores[4] = 30;
+}
+
+function drawBestEndGame() {
+  // Best end game data
+  reason = "Congratulations, you’ve reached the best possible ending! The streets have become noticeably cleaner now that edible food packaging has taken over single use plastics. Other cities around the Bay are beginning to introduce edible packaging in their stores after seeing how well it has worked in the city. In order to prevent the decline of SF’s small business culture, every store that was impacted by the mandate received a stipend to help with the cost of technology needed to improve shelf life to make everyone happy!";
+  scores[0] = 100;
+  scores[1] = 70;
+  scores[2] = 60;
+  scores[3] = 100;
+  scores[4] = 100;
+
+  drawEndGame(scientist[0]);
 }
