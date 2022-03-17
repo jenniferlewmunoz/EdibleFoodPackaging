@@ -1,17 +1,10 @@
 /*******************************************************************************************************************
-      Moody
-    by Scott Kildall
+  The Adventure to Edible Food Packaging
+  by Jennifer Lew Munoz
  
-  Color Palette Values:
-
-  Black: #031927
-  Turquoise: #3ED8D2
-  Canary: #FFF689
-  Sizzling Red: #F2545B
-  Pale Purple: #E9D6EC
-
-    Uses the p5.ComplexStateMachine library. Check the README.md + source code documentation
-    The index.html needs to include the line:  <script src="p5.complexStateManager.js"></script>
+  A choose your own adventure game whose goal is to help a
+  scientist mandate edible food packaging in the city of 
+  San Francisco.
 *********************************************************************************************************************/
 
 var complexStateMachine;           // the ComplexStateMachine class
