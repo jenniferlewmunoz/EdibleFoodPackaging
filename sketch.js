@@ -251,7 +251,7 @@ function drawTextBox(x, y, w, h, fontSize, message) {
   text(message, x + padding, y + 80, w - padding * 2, h - padding * 2);
 }
 
-// ============== FUNCS FOR SPLASH & ENDGAME ==============
+// ============== SPLASH & ENDGAME  FUNCTIONS ==============
 function drawSplashScreen() {
 
   // Print title
@@ -434,7 +434,7 @@ function drawChooseSmallBusiness() {
   scores[2] = 20;
 }
 
-// ============== SCENE ONE ==============
+// ============== SCENE TWO ==============
 function drawScene2() {
   drawTextBar("Thoughts of the people", 360, 250, 670, 485, 300, 100);
   textSize(100);
