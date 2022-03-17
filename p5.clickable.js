@@ -63,10 +63,10 @@ function Clickable() {
 	this.y = 0;			//Y position of the clickable
 	this.width = 100;		//Width of the clickable
 	this.height = 50;		//Height of the clickable
-	this.rColor = 0;			// Red value for background
-	this.bColor = 0;			// Blue value for background
-	this.gColor = 0;			// Green value for background
-	this.transparency = 255;	// Transparency of background
+	this.rColor = 255;			// Red value for background
+	this.bColor = 255;			// Blue value for background
+	this.gColor = 255;			// Green value for background
+	this.transparency = 0;	// Transparency of background
 	this.cornerRadius = 10;		//Corner radius of the clickable
 	this.strokeWeight = 0;		//Stroke width of the clickable
 	this.stroke = "#000000";	//Border color of the clickable

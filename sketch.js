@@ -131,33 +131,27 @@ function setupClickables() {
     clickables[i].onPress = clickableButtonPressed;
 
     // Customize the button
-    clickables[i].textFont = buttonFont;
+    clickables[i].textFont = abel_regular;
     clickables[i].width = 150;
     clickables[i].height = 60;
-    clickables[i].textSize = 25;
+    clickables[i].textSize = 35;
 
     // Background color (232, 232, 230, 170);
-    clickables[i].rColor = 232;
-    clickables[i].gColor = 232;
-    clickables[i].bColor = 230;
+    clickables[i].rColor = 255;
+    clickables[i].gColor = 255;
+    clickables[i].bColor = 255;
     clickables[i].transparency = 0;
   }
 }
 
 // Update button when mouse is hovering over it
 clickableButtonHover = function () {
-  this.rColor = 255;
-  this.gColor = 255;
-  this.bColor = 255;
-  this.transparency = 255;
+  this.textColor = "#4D7BB0";
 }
 
 // Update button when mouse is no longer hovering over it
 clickableButtonOnOutside = function () {
-  this.rColor = 232;
-  this.gColor = 232;
-  this.bColor = 230;
-  this.transparency = 220;
+  this.textColor = "#000000";
 }
 
 clickableButtonPressed = function () {
@@ -187,8 +181,6 @@ function drawImage() {
   }
 }
 
-
-
 // Draws a box without text
 function drawBox(x, y, w, h) {
   fill(232, 232, 230, 170);
@@ -212,10 +204,19 @@ function drawTextBox(x, y, w, h, fontSize, message) {
 }
 
 // TEST FUNCTION ===============================================
-function drawTextBar() {
+function drawTextBar(message, x, y, w, h) {
   noStroke();
   fill(232, 232, 230, 220);
   rect(0, 360, width, 250);
+
+  // Name Box
+
+  stroke(0);
+  fill(0, 0, 0);
+  textFont(abel_regular);
+  textSize(35);
+  //rect(x, y, w, h);
+  text(message, x, y, w, h);
 }
 
 // Draw small UI elements depending on currentStateName
@@ -338,10 +339,9 @@ function drawScientist(index, xcord) {
 }
 
 function drawIntro1() {
-  drawScientist(3, 300);
+
   let message = "Ready to embark on an adventure to a plastic-free world?";
-  //drawTextBox(620, 130, 470, 300, 45, message);
-  drawTextBar();
+  drawTextBar(message, 500, 430, 600, 180);
   drawScientist(3, 300);
 }
 
