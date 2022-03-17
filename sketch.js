@@ -132,9 +132,9 @@ function setupClickables() {
 
     // Customize the button
     clickables[i].textFont = abel_regular;
-    clickables[i].width = 150;
-    clickables[i].height = 60;
-    clickables[i].textSize = 35;
+    clickables[i].width = 200;
+    clickables[i].height = 40;
+    clickables[i].textSize = 30;
 
     // Background color (232, 232, 230, 170);
     clickables[i].rColor = 255;
@@ -205,17 +205,17 @@ function drawTextBox(x, y, w, h, fontSize, message) {
 
 // TEST FUNCTION ===============================================
 function drawTextBar(message, x, y, w, h) {
+
+  // Draw transparent bar
   noStroke();
   fill(232, 232, 230, 220);
   rect(0, 360, width, 250);
 
-  // Name Box
-
+  // Draw text
   stroke(0);
+  textSize(30);
   fill(0, 0, 0);
   textFont(abel_regular);
-  textSize(35);
-  //rect(x, y, w, h);
   text(message, x, y, w, h);
 }
 
@@ -340,32 +340,31 @@ function drawScientist(index, xcord) {
 
 function drawIntro1() {
   let message = "Ready to embark on an adventure to a plastic-free world?";
-  drawTextBar(message, 500, 435, 600, 180);
+  drawTextBar(message, 490, 435, 510, 180);
   drawScientist(3, 300);
 }
 
 function drawIntro2() {
-  drawScientist(0, 300);
-  let message = "It's 2050, and we’ve finally created a great replacement for single-use plastic that wraps most our foods today. Edible food packaging would serve our environment in ways we can’t even imagine! Although we have lot’s of supporters, we have a lot of people trying to stop a mandate for edible food packaging here in San Francisco."
-  drawTextBox(620, 130, 470, 290, 20, message);
+  let message = "Hi, I’m Albert and I work here at EFP Labs in San Francisco, CA! At my lab we’ve recently finished creating Edible Food Packaging that could become a great replacement for single-use plastics.";
+  drawTextBar(message, 490, 390, 510, 220);
+  drawScientist(0, 240);
 }
 
 function drawIntro3() {
-  drawScientist(2, 900);
-  let message = "Otherwise, I’m the lead scientist Albert at EFP Labs, we are the first to create edible food packaging that has all the properties to work in today’s world!\n\n\nWill you join us to reduce the production of single-use plastics and change the world as we know it today?";
-  drawTextBox(120, 130, 500, 302, 20, message);
+  let message = "Our goal is to get our replacement to single-use plastics mandated in San Francisco’s stores to serve as an example for other cities & change the world as we know it today! Will you help us our our adventure to mandate Edible Food Packaging?";
+  drawTextBar(message, 90, 390, 600, 200)
+  drawScientist(2, 990);
+
   reason = "By 2200, due to plastic littered oceans all sea life becomes extinct, and the overwhelming amount of plastic on land has decomposed and released plastic toxins that posion our soils leading to the extinction of the human population.";
 }
 
 // Draws the scene 1 slide
 function drawScene1() {
-  drawScientist(0, 300);
-  drawBox(530, 210, 600, 250);
-  fill(0);
+  noStroke();
+  drawTextBar("The Logistics", 720, 485, 300, 100);
   textSize(100);
-  text("Scene One:", 570, 350);
-  textSize(40);
-  text("The Logistics", 710, 400);
+  text("Scene One:", 600, 470);
+  drawScientist(0, 300);
 }
 
 // Scene 1, Slide 1
