@@ -1,6 +1,9 @@
 # The Adventure to Edbile Food Packaging
 #### by Jennifer Lew Munoz
 
+#### Link to Project:
+https://xarts.usfca.edu/~jjlewmunoz/EdibleFoodPackaging/
+
 
 ## Overview
 This unique choose your own adventure game allows you to see how the invention of Edible Food Packing could influence our world if it was to become widely available.
