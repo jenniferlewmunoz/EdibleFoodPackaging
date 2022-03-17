@@ -1,6 +1,6 @@
 ID,Name,PNGFilename,Text,x,y,visible
 0,Start,,Start,750,470,yes
-1,Begin,,Begin,1000,460,yes
+1,Begin,,Begin,1000,455,yes
 2,Continue1,,Continue,1000,460,yes
 3,Restart,,Restart,555,500,yes
 

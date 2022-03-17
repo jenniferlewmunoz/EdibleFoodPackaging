@@ -202,23 +202,6 @@ function drawTextBox(x, y, w, h, fontSize, message) {
   let padding = 40;
   text(message, x + padding, y + padding, w - padding * 2, h - padding * 2);
 }
-
-// TEST FUNCTION ===============================================
-function drawTextBar(message, x, y, w, h) {
-
-  // Draw transparent bar
-  noStroke();
-  fill(232, 232, 230, 220);
-  rect(0, 360, width, 250);
-
-  // Draw text
-  stroke(0);
-  textSize(30);
-  fill(0, 0, 0);
-  textFont(abel_regular);
-  text(message, x, y, w, h);
-}
-
 // Draw small UI elements depending on currentStateName
 function drawOther() {
   push();
@@ -249,6 +232,29 @@ function drawUI() {
   }
 }
 
+// ============== HELPER FUNCTIONS ==============
+function drawTextBar(message, x, y, w, h) {
+
+  // Draw transparent bar
+  noStroke();
+  fill(232, 232, 230, 220);
+  rect(0, 360, width, 250);
+
+  // Draw text
+  stroke(0);
+  textSize(30);
+  fill(0, 0, 0);
+  textFont(abel_regular);
+  text(message, x, y, w, h);
+}
+
+function drawScientist(index, xcord) {
+  let imgSize = 700;
+  scientist[index].resize(imgSize, imgSize);
+  image(scientist[index], xcord, height - (imgSize / 2));
+}
+
+// ============== FUNCS FOR SPLASH & ENDGAME ==============
 function drawSplashScreen() {
 
   // Print title
@@ -331,13 +337,7 @@ function drawEndGame() {
   }
 }
 
-// Helper function for drawIntro1-3() that draws scientist image
-function drawScientist(index, xcord) {
-  let imgSize = 700;
-  scientist[index].resize(imgSize, imgSize);
-  image(scientist[index], xcord, height - (imgSize / 2));
-}
-
+// ============== INTRO PAGES ==============
 function drawIntro1() {
   let message = "Ready to embark on an adventure to a plastic-free world?";
   drawTextBar(message, 490, 435, 510, 180);
@@ -354,11 +354,10 @@ function drawIntro3() {
   let message = "Our goal is to get our replacement to single-use plastics mandated in San Francisco’s stores to serve as an example for other cities & change the world as we know it today! Will you help us our our adventure to mandate Edible Food Packaging?";
   drawTextBar(message, 90, 390, 600, 200)
   drawScientist(2, 990);
-
   reason = "By 2200, due to plastic littered oceans all sea life becomes extinct, and the overwhelming amount of plastic on land has decomposed and released plastic toxins that posion our soils leading to the extinction of the human population.";
 }
 
-// Draws the scene 1 slide
+// ============== SCENE ONE ==============
 function drawScene1() {
   noStroke();
   drawTextBar("The Logistics", 720, 485, 300, 100);
