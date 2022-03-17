@@ -1,8 +1,8 @@
 # The Adventure to Edbile Food Packaging
 #### by Jennifer Lew Munoz
 
-#### Link to Project:
-https://xarts.usfca.edu/~jjlewmunoz/EdibleFoodPackaging/
+#### Link to Project: https://xarts.usfca.edu/~jjlewmunoz/EdibleFoodPackaging/
+#### Link to Adobe XD Draft: https://xd.adobe.com/view/2fcfcb63-c976-42d6-8583-c570b0566ede-7a9c/
 
 
 ## Overview
