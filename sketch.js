@@ -339,9 +339,8 @@ function drawScientist(index, xcord) {
 }
 
 function drawIntro1() {
-
   let message = "Ready to embark on an adventure to a plastic-free world?";
-  drawTextBar(message, 500, 430, 600, 180);
+  drawTextBar(message, 500, 435, 600, 180);
   drawScientist(3, 300);
 }
 
