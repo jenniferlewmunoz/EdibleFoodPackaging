@@ -205,14 +205,16 @@ function drawTextBox(x, y, w, h, fontSize, message) {
 // Draw small UI elements depending on currentStateName
 function drawOther() {
   push();
+
   if (currentStateName == "Splash") drawSplashScreen();
+  if (currentStateName == "EndGame") drawEndGame();
+
   if (currentStateName == "Intro1") drawIntro1();
   if (currentStateName == "Intro2") drawIntro2();
   if (currentStateName == "Intro3") drawIntro3();
+
   if (currentStateName == "Scene1") drawScene1();
-  if (currentStateName == "EndGame") drawEndGame();
-  if (currentStateName == "Scene1Slide1") drawS1S1();
-  if (currentStateName == "Scene1Slide1") drawS1S1();
+  if (currentStateName == "Scene1Choice1") drawScene1Choice1();
   if (currentStateName == "StoreOption1") drawStoreOption1();
   if (currentStateName == "StoreOption2") drawStoreOption2();
   if (currentStateName == "ChooseWholeFoods") drawChooseWholeFoods();
@@ -366,11 +368,10 @@ function drawScene1() {
   drawScientist(0, 300);
 }
 
-// Scene 1, Slide 1
-function drawS1S1() {
-  drawScientist(0, 300);
-  let message = "We’re going to need some funding to start prototyping in stores to show the world how our edible food packing works. Should we ask an environmental organization to fund us, or take a loan out ourselves to ensure that we are the only ones credited.";
-  drawTextBox(560, 140, 500, 230, 20, message);
+function drawScene1Choice1() {
+  let message = "We need funding to prototype in stores and show the world how our edible food packaging works. Should we ask a non-profit environmental organization to fund our project, or take a loan out ourselves?";
+  drawTextBar(message, 450, 390, 530, 220);
+  drawScientist(0, 250);
 }
 
 function drawStore(message, textBoxHeight) {

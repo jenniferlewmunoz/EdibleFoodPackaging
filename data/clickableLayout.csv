@@ -8,8 +8,10 @@ ID,Name,PNGFilename,Text,x,y,visible
 5,No,,No,650,510,yes
 
 6,Continue2,,Click here to begin!,695,560,yes
-7,WWF,,Ask WWF,600,400,yes
-8,Bank,,Take a loan,850,400,yes
+
+7,WWF,,Ask a non-profit,1000,420,yes
+8,Bank,,Take out a loan,995,510,yes
+
 9,WFM,,Whole Foods,420,390,yes
 10,SmallB,,Small Store,670,390,yes
 11,YouPay,,Lab pays,440,420,yes
