@@ -1,5 +1,5 @@
 StateName,PNGFilename,ClickableName,NextState
-Splash,assets/park.png,Start,Scene1
+Splash,assets/park.png,Start,Scene2
 EndGame,assets/lab_background.png,Restart,Splash
 Intro1,assets/lab_background.png,Begin,Intro2
 Intro2,assets/lab_background.png,Continue1,Intro3
@@ -7,12 +7,12 @@ Intro3,assets/lab_background.png,Yes,Scene1
 Intro3,assets/lab_background.png,No,EndGame
 
 Scene1,assets/grocery_store.png,Continue2,Scene1Choice1
-Scene1Choice1,assets/grocery_store.png,WWF,StoreOption1
-Scene1Choice1,assets/grocery_store.png,Bank,StoreOption2
-StoreOption1,assets/grocery_store.png,WFM,ChooseWholeFoods
-StoreOption1,assets/grocery_store.png,SmallB,ChooseSmallBusiness
-StoreOption2,assets/grocery_store.png,WFM,EndGame
-StoreOption2,assets/grocery_store.png,SmallB,EndGame
+Scene1Choice1,assets/grocery_store.png,WWF,ChooseNonProfit
+Scene1Choice1,assets/grocery_store.png,Bank,ChooseLoan
+ChooseNonProfit,assets/grocery_store.png,WFM,ChooseWholeFoods
+ChooseNonProfit,assets/grocery_store.png,SmallB,ChooseSmallBusiness
+ChooseLoan,assets/grocery_store.png,WFM,EndGame
+ChooseLoan,assets/grocery_store.png,SmallB,EndGame
 
 
 ChooseWholeFoods,assets/grocery_store.png,YouPay,Scene2

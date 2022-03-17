@@ -215,8 +215,8 @@ function drawOther() {
 
   if (currentStateName == "Scene1") drawScene1();
   if (currentStateName == "Scene1Choice1") drawScene1Choice1();
-  if (currentStateName == "StoreOption1") drawStoreOption1();
-  if (currentStateName == "StoreOption2") drawStoreOption2();
+  if (currentStateName == "ChooseNonProfit") drawChooseNonProfit();
+  if (currentStateName == "ChooseLoan") drawChooseLoan();
   if (currentStateName == "ChooseWholeFoods") drawChooseWholeFoods();
   if (currentStateName == "ChooseSmallBusiness") drawChooseSmallBusiness();
   if (currentStateName == "Scene2") drawScene2();
@@ -235,12 +235,12 @@ function drawUI() {
 }
 
 // ============== HELPER FUNCTIONS ==============
-function drawTextBar(message, x, y, w, h) {
+function drawTextBar(message, boxY, boxHeight, x, y, w, h) {
 
   // Draw transparent bar
   noStroke();
   fill(232, 232, 230, 220);
-  rect(0, 360, width, 250);
+  rect(0, boxY, width, boxHeight);
 
   // Draw text
   stroke(0);
@@ -250,10 +250,9 @@ function drawTextBar(message, x, y, w, h) {
   text(message, x, y, w, h);
 }
 
-function drawScientist(index, xcord) {
-  let imgSize = 700;
-  scientist[index].resize(imgSize, imgSize);
-  image(scientist[index], xcord, height - (imgSize / 2));
+function drawPlayer(player, imgSize, xcord) {
+  player.resize(imgSize, imgSize);
+  image(player, xcord, height - (imgSize / 2));
 }
 
 // ============== FUNCS FOR SPLASH & ENDGAME ==============
@@ -292,7 +291,7 @@ function drawSplashScreen() {
 function drawEndGame() {
 
   // Draw UI
-  drawScientist(1, 250);
+  drawPlayer(scientist[1], 700, 250);
   drawBox(850, 40, 350, 600);
 
   // Draw reason textbox
@@ -342,145 +341,108 @@ function drawEndGame() {
 // ============== INTRO PAGES ==============
 function drawIntro1() {
   let message = "Ready to embark on an adventure to a plastic-free world?";
-  drawTextBar(message, 490, 435, 510, 180);
-  drawScientist(3, 300);
+  drawTextBar(message, 360, 250, 490, 435, 510, 180);
+  drawPlayer(scientist[3], 700, 300);
 }
 
 function drawIntro2() {
   let message = "Hi, I’m Albert and I work here at EFP Labs in San Francisco, CA! At my lab we’ve recently finished creating Edible Food Packaging that could become a great replacement for single-use plastics.";
-  drawTextBar(message, 490, 390, 510, 220);
-  drawScientist(0, 240);
+  drawTextBar(message, 360, 250, 490, 390, 510, 220);
+  drawPlayer(scientist[0], 700, 240);
 }
 
 function drawIntro3() {
-  let message = "Our goal is to get our replacement to single-use plastics mandated in San Francisco’s stores to serve as an example for other cities & change the world as we know it today! Will you help us our our adventure to mandate Edible Food Packaging?";
-  drawTextBar(message, 90, 390, 600, 200)
-  drawScientist(2, 990);
+  let message = "Our goal is to replace single-use plastics and have edible food packaging mandated across all the grocery stores in San Francisco. This would serve as an example for other cities & possibly change the world as we know it today! Will you help us?";
+  drawTextBar(message, 360, 250, 90, 390, 600, 200)
+  drawPlayer(scientist[2], 700, 990);
   reason = "By 2200, due to plastic littered oceans all sea life becomes extinct, and the overwhelming amount of plastic on land has decomposed and released plastic toxins that posion our soils leading to the extinction of the human population.";
 }
 
 // ============== SCENE ONE ==============
 function drawScene1() {
   noStroke();
-  drawTextBar("The Logistics", 720, 485, 300, 100);
+  drawTextBar("The Logistics", 360, 250, 720, 485, 300, 100);
   textSize(100);
   text("Scene One:", 600, 470);
-  drawScientist(0, 300);
+  drawPlayer(scientist[0], 700, 300);
 }
 
 function drawScene1Choice1() {
   let message = "We need funding to prototype in stores and show the world how our edible food packaging works. Should we ask a non-profit environmental organization to fund our project, or take a loan out ourselves?";
-  drawTextBar(message, 450, 390, 530, 220);
-  drawScientist(0, 250);
+  drawTextBar(message, 360, 250, 450, 390, 530, 220);
+  drawPlayer(scientist[0], 700, 250);
 }
 
-function drawStore(message, textBoxHeight) {
+function drawChooseNonProfit() {
   // Draw text
-  drawTextBox(370, 120, 500, textBoxHeight, 20, message);
+  let message = "The non-profit organization loved the idea and have generously offered to cover all cost related to increasing exposure. Now where should prototype our products, a large chain like Whole Foods, or in a small business?";
+  textAlign(CENTER);
+  drawTextBar(message, 350, 280, 350, 370, 600, 220);
 
   // Draw players
-  let imgSize = 700;
-  mackey.resize(imgSize, imgSize);
-  image(mackey, 200, height - (imgSize / 2));
-
-  owner.resize(imgSize, imgSize);
-  image(owner, 1070, height - (imgSize / 2));
-
-  // Update end game data
-  reason = "Unfortunately, it was realized that new technology was needed to ensure longer shelve lives in stores and neither the Lab or the store had that kind of funded so the project has come to an end.";
-  unlocked[1] = true;
-  unlocked[2] = true;
-  scores[1] = 40;
-  scores[2] = 40;
-}
-
-function drawStoreOption1() {
-  // Draw text
-  let message = "WWF loved the idea of edible food packing, and have gernously offered to cover all the prototyping cost to gain exposure. Now, we need to go into stores and ask to prototype our products on their shelves. Who should we ask?";
-  drawTextBox(370, 120, 500, 230, 20, message);
-
-  // Draw players
-  let imgSize = 700;
-  mackey.resize(imgSize, imgSize);
-  image(mackey, 200, height - (imgSize / 2));
-
-  owner.resize(imgSize, imgSize);
-  image(owner, 1070, height - (imgSize / 2));
+  drawPlayer(mackey, 600, 190);
+  drawPlayer(owner, 580, 1100);
 
   // Update end game data
   unlocked[1] = true;
   unlocked[2] = true;
-  scores[1] = 40;
-  scores[2] = 40;
+  scores[1] = 50;
+  scores[2] = 50;
 }
 
-function drawStoreOption2() {
+function drawChooseLoan() {
   // Draw text
   let message = "The Lab was approved for a loan that was only 50% of asking, but it’s still a good start. Now, we need to go into stores and ask to prototype our products on their shelves. Who should we ask?";
-  drawTextBox(370, 150, 500, 190, 20, message);
+  textAlign(CENTER);
+  drawTextBar(message, 390, 240, 350, 410, 600, 220);
 
   // Draw players
-  let imgSize = 700;
-  mackey.resize(imgSize, imgSize);
-  image(mackey, 200, height - (imgSize / 2));
-
-  owner.resize(imgSize, imgSize);
-  image(owner, 1070, height - (imgSize / 2));
+  drawPlayer(mackey, 600, 190);
+  drawPlayer(owner, 580, 1100);
 
   // Update end game data
-  reason = "Unfortunately, it was realized that new technology was needed to ensure longer shelve lives in stores and neither the Lab or the store had that kind of funds so the project has come to an end.";
+  reason = "Unfortunately, after prototyping edible food packaging in stores for a few weeks, we came to realize that the self lives were much shorter than those wrapped in plastic. In order to keep a longer shelf life, expensive technology would have to be put into store which the lab couldn’t afford since the loan was only 50 percent of their asking. Edible packed products were pulled from shelves and the invention did not get the exposure it needed.";
   unlocked[1] = true;
   unlocked[2] = true;
-  scores[1] = 40;
-  scores[2] = 40;
+  scores[1] = 50;
+  scores[2] = 50;
 }
 
 function drawChooseWholeFoods() {
   // Draw text
-  let message = "We’ve successfully launched our Edible Food Packed products in Whole Foods all throughout San Francisco, but just after a few weeks, we began to notice a problem. The shelve lives of the products are a lot shorter than plastic wrapped items. We’re going to have to put technology in stores that allows longer shelve lives.";
-  drawTextBox(400, 100, 490, 300, 20, message);
+  let message = "We’ve successfully launched in SF’s Whole Foods, however, we’ve come to realize that the shelf life of these products are a lot shorter than those of plastic wrapped items. We’re going to have to put technology that preserves shelf life in store.";
+  textAlign(CENTER);
+  drawTextBar(message, 350, 280, 350, 370, 600, 220);
 
   // Draw players
-  let imgSize = 700;
-  mackey.resize(imgSize, imgSize);
-  image(mackey, 200, height - (imgSize / 2));
-
-  scientist[0].resize(imgSize, imgSize);
-  image(scientist[0], 1070, height - (imgSize / 2));
+  drawPlayer(mackey, 600, 180);
+  drawPlayer(scientist[0], 600, 1100);
 
   // Update end game data
-  scores[1] = 20;
+  reason = "CEO of Whole Foods John Mackey is furious that you've come into his stores with your idea telling him that he has to pay for prototyping costs. Mackey thinks is rude and tells you that he no longer wants to work with EFP Labs. The non-profit organization that was helping you dosen't want any bad publicity with a giant corperation like Whole Foods so they stop funding EFP Labs too ensure there is no trouble.";
+  scores[1] = 10;
 }
 
 function drawChooseSmallBusiness() {
   // Draw text
-  let message = "We’ve successfully launched our Edible Food Packed products in a store, but just after a few weeks, we began to notice a problem. The shelve lives of the products are a lot shorter than plastic wrapped items. We’re going to have to put technology in stores that allows longer shelve lives.";
-  drawTextBox(400, 100, 490, 300, 20, message);
+  let message = "We’ve successfully launched in a local SF grocery store, however, we’ve come to realize that the shelf life of these products are a lot shorter than those of plastic wrapped items. We’re going to have to put technology that preserves shelf life in store.";
+  textAlign(CENTER);
+  drawTextBar(message, 350, 280, 350, 370, 600, 220);
 
   // Draw players
-  let imgSize = 700;
-  owner.resize(imgSize, imgSize);
-  image(owner, 200, height - (imgSize / 2));
-
-  scientist[0].resize(imgSize, imgSize);
-  image(scientist[0], 1070, height - (imgSize / 2));
+  drawPlayer(owner, 600, 180);
+  drawPlayer(scientist[0], 600, 1100);
 
   // Update end game data
-  reason = "Unfortunately, working with a small business did not get Edible Food Packaging the exposure it needed to continue production and testing so WWF pulled their funding and the project has come to an end.";
+  reason = "Unfortunately, working with a small grocery store business in San Francisco did not get “Edible Food Packaging” the expose it needed to continue prooduction and testing. After months of seeing no return, the non-profit environmental organization decided to end their partnership with EFP Labs and pulled all funding.";
   scores[2] = 20;
 }
 
+// ============== SCENE ONE ==============
 function drawScene2() {
-  // Draw mayor
-  let imgSize = 700;
-  mayor.resize(imgSize, imgSize);
-  image(mayor, 280, height - (imgSize / 2));
-
-  // Draw text
-  drawBox(530, 210, 600, 250);
-  fill(0);
+  noStroke();
+  drawTextBar("Thoughts of the people", 360, 250, 670, 485, 300, 100);
   textSize(100);
-  text("Scene Two:", 570, 350);
-  textSize(40);
-  text("Thoughts of the people", 640, 400);
+  text("Scene Two:", 580, 470);
+  drawPlayer(mayor, 700, 250);
 }

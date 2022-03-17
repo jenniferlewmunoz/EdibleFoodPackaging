@@ -3,17 +3,16 @@ ID,Name,PNGFilename,Text,x,y,visible
 1,Begin,,Begin,1000,455,yes
 2,Continue1,,Continue,1000,460,yes
 3,Restart,,Restart,555,500,yes
-
 4,Yes,,Yes,650,420,yes
 5,No,,No,650,510,yes
-
 6,Continue2,,Click here to begin!,695,560,yes
-
 7,WWF,,Ask a non-profit,1000,420,yes
 8,Bank,,Take out a loan,995,510,yes
 
-9,WFM,,Whole Foods,420,390,yes
-10,SmallB,,Small Store,670,390,yes
-11,YouPay,,Lab pays,440,420,yes
-12,WFPays,,WF pays,690,420,yes
-13,StorePays,,Store pays,690,420,yes
+9,WFM,,Whole Foods,430,580,yes
+10,SmallB,,Small Store,660,580,yes
+
+11,YouPay,,Lab pays for tech,730,580,yes
+12,WFPays,,Whole Foods pays for tech,420,580,yes
+
+13,StorePays,,Store pays for tech,370,580,yes
