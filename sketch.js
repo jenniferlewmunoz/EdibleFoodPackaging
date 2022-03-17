@@ -7,9 +7,10 @@
   San Francisco.
 *********************************************************************************************************************/
 
-var complexStateMachine;           // the ComplexStateMachine class
-var clickablesManager;             // our clickables manager
-var clickables;                    // an array of clickable objects
+// ============== Global Variables ==============
+var complexStateMachine;
+var clickablesManager;
+var clickables;
 
 var currentStateName = "";
 var backgroundImage;
@@ -20,13 +21,7 @@ var icons = [];
 var scores = [10, 0, 0, 0, 0];
 var unlocked = [true, false, false, false, false];
 
-// Color
-var bkColor = '#031927';
-var textColor = '#E9D6EC';
-
 // Fonts
-var buttonFont;
-var titleFont;
 var abel_regular;
 
 // Variables for splash page
@@ -44,6 +39,7 @@ var owner;
 var mayor;
 var citizen;
 
+// ============== p5.js FUNCTIONS ==============
 function preload() {
   clickablesManager = new ClickableManager('data/clickableLayout.csv');
   complexStateMachine = new ComplexStateMachine("data/interactionTable.csv", "data/clickableLayout.csv");
@@ -114,6 +110,7 @@ function draw() {
   drawUI();
 }
 
+// ============== CLICKABLES ==============
 function setupClickables() {
   // All clickables to have same effects
   for (let i = 0; i < clickables.length; i++) {
@@ -162,6 +159,7 @@ function stateChanged(newStateName) {
   console.log(currentStateName);
 }
 
+// ============== DRAW FUNCTIONS ==============
 // First draw white background for smooth transitions
 function drawBackground() {
   background(255);
@@ -484,7 +482,6 @@ function drawChooseListen() {
     w = 600;
     h = 50;
   }
-
   drawTextBar(message, 30, 170, x, y, w, h);
 
   // Update end game data
