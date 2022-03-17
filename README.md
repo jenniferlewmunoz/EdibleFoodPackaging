@@ -18,5 +18,5 @@ Get as far as you can through the game to unlock all five of the players you're 
 If you reach a dead end in the game, you will be able to see how your choices made each player feel as a result (Upset, Neutral, Happy). Keep retrying until you reach the "Best Possible Ending" and unlock every single player!
 
 ## Links
-Link to Project: https://xarts.usfca.edu/~jjlewmunoz/EdibleFoodPackaging/
-Link to Adobe XD Draft: https://xd.adobe.com/view/2fcfcb63-c976-42d6-8583-c570b0566ede-7a9c/
+ - Link to Project: https://xarts.usfca.edu/~jjlewmunoz/EdibleFoodPackaging/
+ - Link to Adobe XD Draft: https://xd.adobe.com/view/2fcfcb63-c976-42d6-8583-c570b0566ede-7a9c/
